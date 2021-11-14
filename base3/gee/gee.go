@@ -42,6 +42,7 @@ func New() *Engine {
 	engine := &Engine{router: newRouter()}
 	engine.RouterGroup = &RouterGroup{engine: engine}
 	engine.groups = []*RouterGroup{engine.RouterGroup}
+	engine.Use(Logger(), Recovery())  // Using middlewares of the logger and recovery.
 	return engine
 }
 

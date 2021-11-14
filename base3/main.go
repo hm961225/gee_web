@@ -10,7 +10,7 @@ import (
 
 func main() {
 	r := gee.New()
-	r.Use(gee.Logger())
+
 	r.GET("/index", func(c *gee.Context) {
 		c.HTML(http.StatusOK, "<h1>Index Page</h1>")
 	})
@@ -49,6 +49,12 @@ func main() {
 			"username": c.PostForm("username"),
 			"password": c.PostForm("password"),
 		})
+	})
+
+	r.GET("/panic", func(c *gee.Context) {
+		numList := []string{"1", "2", "3"}
+		fmt.Println(numList[3])
+		c.String(http.StatusOK, numList[3])
 	})
 
 	err := r.Run(":9999")

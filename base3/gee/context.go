@@ -3,6 +3,7 @@ package gee
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 )
 
@@ -87,4 +88,10 @@ func (c *Context) HTML(code int, html string) {
 	c.SetHeader("Content-type", "text/html")
 	c.Status(code)
 	c.Writer.Write([]byte(html))
+}
+
+func (c *Context) Fail(code int, message string) {
+	log.Printf("[%d] %s", code, message)
+	errorMessage := fmt.Sprintf("[%d] %s", code, message)
+	c.Writer.Write([]byte(errorMessage))
 }
